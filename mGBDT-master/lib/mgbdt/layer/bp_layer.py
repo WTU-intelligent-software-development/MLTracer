@@ -11,7 +11,7 @@ class BPLayer:
 
     def backward(self, input, target, target_lr):
         gradient = self.F.gradient(input, target)
-        out = input - target_lr * gradient
+        out = input - target_lr * target
         return out
 
     def fit_forward_mapping(self, input, target):
