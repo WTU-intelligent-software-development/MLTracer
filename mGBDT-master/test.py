@@ -103,22 +103,6 @@ def cv(name, feature_path, dbm=None):
 
     net = MGBDT(log, datasetName=name, loss="CrossEntropyLoss", target_lr=1.0,
                 epsilon=0.1)  # Create a multi-layerd GBDTs
-
-    # F, G represent the forward mapping and inverse mapping (in this paper, we use gradient boosting decision tree)
-    # net.add_layer("tp_layer",
-    #               F=MultiXGBModel(input_size=X_banance.shape[1], output_size=32, learning_rate=0.01, max_depth=5,
-    #                               num_boost_round=5),
-    #               G=None)
-    # net.add_layer("tp_layer",
-    #               F=MultiXGBModel(input_size=32, output_size=16, learning_rate=0.01, max_depth=5, num_boost_round=5),
-    #               G=MultiXGBModel(input_size=16, output_size=32, learning_rate=0.01, max_depth=5, num_boost_round=5))
-    # net.add_layer("tp_layer",
-    #               F=MultiXGBModel(input_size=16, output_size=8, learning_rate=0.01, max_depth=5, num_boost_round=5),
-    #               G=MultiXGBModel(input_size=8, output_size=16, learning_rate=0.01, max_depth=5, num_boost_round=5))
-    # net.add_layer("tp_layer",
-    #               F=MultiXGBModel(input_size=8, output_size=2, learning_rate=0.01, max_depth=5, num_boost_round=5),
-    #               G=MultiXGBModel(input_size=2, output_size=8, learning_rate=0.01, max_depth=5, num_boost_round=5))
-
     init_dim = 32
     global layer_num
     if layer_num < 2:
@@ -147,12 +131,6 @@ def cv(name, feature_path, dbm=None):
     net.fit(X_banance, y_banance, n_epochs=100, eval_sets=[(X_test, y_test)], eval_metric="all")  # fit the dataset
     y_pred = net.forward(X_test)
 
-    # get the hidden outputs
-    # hiddens = net.get_hiddens(X_test)
-    # hiddens[0] represent the input data
-    # hiddens[1] represent the output of the first layer
-    # hiddens[2] represent the output of the second layer
-    # hiddens[3] represent the output of the final layer (same as y_pred)
 
     scores = metrics.get_all_scores(y_test, y_pred.argmax(axis=1))
     global result
