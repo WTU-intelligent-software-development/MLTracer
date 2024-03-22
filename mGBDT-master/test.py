@@ -140,14 +140,6 @@ def cv(name, feature_path, dbm=None):
     del net
 
 
-def write_to_excel(output_fname=os.path.join(root, "outputs/performance/")):
-    if output_fname is not None:
-        if not os.path.exists(output_fname):
-            os.makedirs(output_fname)
-        result.to_excel(os.path.join(output_fname + "scores.xlsx"))
-
-
 def setup_main():
     runexp()
-    # write_to_excel()
 
