@@ -147,28 +147,7 @@ def write_to_excel(output_fname=os.path.join(root, "outputs/performance/")):
         result.to_excel(os.path.join(output_fname + "scores.xlsx"))
 
 
-# 数据集划分
-def split_data(X, y, dbm=None):
-    # 先划分后平衡
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=32, stratify=y)
-    # 数据平衡
-    if dbm != None:
-        X_banance, y_banance = dbm(X_train, y_train)
-    else:
-        X_banance = X_train
-        y_banance = y_train
-    return X_banance, X_test, y_banance, y_test
-
-
 def setup_main():
     runexp()
     # write_to_excel()
 
-
-if __name__ == '__main__':
-    layer_num = 0
-    layers = [2, 3, 5, 6, 7, 8, 9, 10]
-    # layers = [2]
-    for layer_num in layers:
-        setup_main()
-        jie_xi__log(layer_num)
